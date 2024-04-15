@@ -1,0 +1,13 @@
+prefix: "&b&lCarnien &7• "
+name-tag:
+  prefix: "%rank-color%%short-rank% &7┃ "
+messages:
+  player-message:
+    syntax: "%rank-color%%short-rank% &7┃ %rank-color%%player% &7» "
+    enabled: true
+  join-message:
+    syntax: "&7[&a+&7] %rank-color%%player%"
+    enabled: true
+  quit-message:
+    syntax: "&7[&c-&7] %rank-color%%player%"
+    enabled: true

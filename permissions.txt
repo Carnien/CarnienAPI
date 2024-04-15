@@ -1,0 +1,9 @@
+- api.gamemode
+- api.group
+- api.group.create
+- api.group.delete
+- api.group.set
+- api.group.permission
+- api.group.permission.add
+- api.group.permission.remove
+- api.groups
