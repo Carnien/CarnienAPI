@@ -15,12 +15,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Carnien extends JavaPlugin {
 
-    private static Carnien instance;
     private final ModuleManager moduleManager = new ModuleManager();
 
     @Override
     public void onEnable() {
-        instance = this;
         initialize();
     }
 
@@ -72,7 +70,5 @@ public final class Carnien extends JavaPlugin {
     public CommandHandler getCommandHandler() {
         return (CommandHandler) moduleManager.get("CommandHandler");
     }
-
-    public static Carnien getCarnien() { return instance; }
 
 }
