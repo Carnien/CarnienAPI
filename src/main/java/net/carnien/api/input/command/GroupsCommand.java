@@ -23,7 +23,7 @@ public class GroupsCommand extends Command {
         final List<Group> groups = permissionManager.getGroups();
         String message = "§fGroups (§a" + groups.size() + "§f): ";
 
-        if (groups.size() == 0) {
+        if (groups.isEmpty()) {
             logger.sendMessage(sender, message);
             return;
         }
