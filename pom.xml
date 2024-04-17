@@ -59,6 +59,10 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
             <id>dmulloy2-repo</id>
             <url>https://repo.dmulloy2.net/repository/public/</url>
         </repository>
@@ -74,6 +78,12 @@
             <artifactId>spigot-api</artifactId>
             <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Carnien</groupId>
+            <artifactId>DependencyManager</artifactId>
+            <version>67950b5dd7</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.comphenix.protocol</groupId>

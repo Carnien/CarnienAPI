@@ -3,4 +3,4 @@ version: '${project.version}'
 authors: [ "Carnivohra" ]
 main: 'net.carnien.api.Carnien'
 api-version: '1.20'
-depend: [ "ProtocolLib" ]
+softdepend: [ "ProtocolLib" ]

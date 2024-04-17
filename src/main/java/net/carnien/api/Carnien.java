@@ -1,24 +1,37 @@
 package net.carnien.api;
 
-import net.carnien.api.input.module.CommandHandler;
+import net.carnien.api.input.module.*;
 import net.carnien.api.input.ModuleManager;
 import net.carnien.api.input.command.GamemodeCommand;
 import net.carnien.api.input.command.GroupCommand;
 import net.carnien.api.input.command.GroupsCommand;
-import net.carnien.api.input.module.CarnienLogger;
-import net.carnien.api.input.module.JsonHelper;
-import net.carnien.api.input.module.MojangApi;
-import net.carnien.api.input.module.PlayerHelper;
-import net.carnien.api.input.module.PermissionManager;
 import net.carnien.api.input.Module;
+import net.carnien.dependencymanager.Dependency;
+import net.carnien.dependencymanager.DependencyManager;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Carnien extends JavaPlugin {
 
+    private final DependencyManager dependencyManager = new DependencyManager();
     private final ModuleManager moduleManager = new ModuleManager();
+
+    private void initializeDependencies() {
+        dependencyManager.add(new Dependency("ProtocolLib",
+            "https://ci.dmulloy2.net/job/ProtocolLib/lastBuild/artifact/build/libs/ProtocolLib.jar"));
+    }
 
     @Override
     public void onEnable() {
+        initializeDependencies();
+
+        if (!dependencyManager.check()) {
+            PluginManager pluginManager = Bukkit.getPluginManager();
+            pluginManager.disablePlugin(this);
+            return;
+        }
+
         initialize();
     }
 
