@@ -9,10 +9,6 @@ public class GroupPermissionCommand extends Command {
 
     public GroupPermissionCommand(Carnien carnien) {
         super(carnien, "Group Permission", "api.group.permission", "group permission");
-    }
-
-    @Override
-    protected void registerSubCommands() {
         addSubCommand("add", new GroupPermissionAddCommand(getCarnien()));
         addSubCommand("remove", new GroupPermissionRemoveCommand(getCarnien()));
     }

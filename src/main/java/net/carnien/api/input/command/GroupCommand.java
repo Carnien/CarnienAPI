@@ -11,10 +11,6 @@ public class GroupCommand extends Command {
 
     public GroupCommand(Carnien carnien) {
         super(carnien, "Group", "api.group", "group");
-    }
-
-    @Override
-    protected void registerSubCommands() {
         addSubCommand("create", new GroupCreateCommand(getCarnien()));
         addSubCommand("set", new GroupSetCommand(getCarnien()));
         addSubCommand("permission", new GroupPermissionCommand(getCarnien()));

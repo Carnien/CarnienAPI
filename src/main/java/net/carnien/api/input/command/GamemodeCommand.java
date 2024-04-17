@@ -17,7 +17,7 @@ public class GamemodeCommand extends Command {
 
     public GamemodeCommand(Carnien carnien) {
         super(carnien, "Gamemode", "api.gamemode",
-            "gamemode <survival/creative/adventure/spectator> <players>");
+            "gamemode <survival/creative/adventure/spectator> (player ...)");
         setMinArgs(1);
         setAliases(new String[]{"gm"});
     }

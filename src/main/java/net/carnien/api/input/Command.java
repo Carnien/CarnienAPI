@@ -29,7 +29,6 @@ public class Command extends CarnienUtil {
         this.name = name;
         this.permission = permission;
         this.usage = usage;
-        registerSubCommands();
     }
 
     public void run(CommandSender sender, String[] args) {
@@ -70,8 +69,6 @@ public class Command extends CarnienUtil {
     }
 
     protected void onCommand(CommandSender sender, String[] args) { }
-
-    protected void registerSubCommands() { }
 
     protected void addSubCommand(String label, Command subCommand) {
         if (subCommands.containsKey(label)) return;
