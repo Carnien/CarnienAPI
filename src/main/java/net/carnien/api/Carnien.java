@@ -17,11 +17,6 @@ public final class Carnien extends JavaPlugin {
     private final DependencyManager dependencyManager = new DependencyManager();
     private final ModuleManager moduleManager = new ModuleManager();
 
-    private void initializeDependencies() {
-        dependencyManager.add(new Dependency("ProtocolLib",
-            "https://ci.dmulloy2.net/job/ProtocolLib/lastBuild/artifact/build/libs/ProtocolLib.jar"));
-    }
-
     @Override
     public void onEnable() {
         initializeDependencies();
@@ -33,6 +28,11 @@ public final class Carnien extends JavaPlugin {
         }
 
         initialize();
+    }
+
+    private void initializeDependencies() {
+        dependencyManager.add(new Dependency("ProtocolLib",
+            "https://ci.dmulloy2.net/job/ProtocolLib/lastBuild/artifact/build/libs/ProtocolLib.jar"));
     }
 
     private void initialize() {
