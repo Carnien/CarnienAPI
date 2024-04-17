@@ -4,10 +4,11 @@ import net.carnien.api.Carnien;
 import net.carnien.api.input.Command;
 import net.carnien.api.input.Module;
 import net.carnien.api.input.module.commandHandler.listener.CommandHandlerListener;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CommandHandler extends Module {
 
@@ -46,8 +47,30 @@ public class CommandHandler extends Module {
             return;
         }
 
+        args = replaceShortcuts(args);
         final Command command = get(label);
         command.run(sender, args);
+    }
+
+    private String[] replaceShortcuts(String[] args) {
+        final List<String> newArgs = new ArrayList<>();
+
+        for (String arg : args) {
+            switch (arg) {
+                case "@a":
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        final String playerName = player.getName();
+                        newArgs.add(playerName);
+                    }
+                    break;
+                default:
+                    newArgs.add(arg);
+                    break;
+            }
+
+        }
+
+        return newArgs.toArray(new String[]{});
     }
 
     public Command get(String label) {
