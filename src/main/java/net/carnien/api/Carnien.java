@@ -12,27 +12,35 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Logger;
+
 public final class Carnien extends JavaPlugin {
 
     private final DependencyManager dependencyManager = new DependencyManager();
     private final ModuleManager moduleManager = new ModuleManager();
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         initializeDependencies();
-
-        if (!dependencyManager.check()) {
-            PluginManager pluginManager = Bukkit.getPluginManager();
-            pluginManager.disablePlugin(this);
-            return;
-        }
-
-        initialize();
+        dependencyManager.downloadMissingDependencies();
     }
 
     private void initializeDependencies() {
         dependencyManager.add(new Dependency("ProtocolLib",
             "https://ci.dmulloy2.net/job/ProtocolLib/lastBuild/artifact/build/libs/ProtocolLib.jar"));
+    }
+
+    @Override
+    public void onEnable() {
+        if (!dependencyManager.isReloadRequired()) {
+            initialize();
+            return;
+        }
+
+        final Logger logger = Bukkit.getLogger();
+        logger.warning("Please restart or reload the server to enable downloaded dependencies!");
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.disablePlugin(this);
     }
 
     private void initialize() {

@@ -82,7 +82,7 @@
         <dependency>
             <groupId>com.github.Carnien</groupId>
             <artifactId>DependencyManager</artifactId>
-            <version>67950b5dd7</version>
+            <version>403d891e5f</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
