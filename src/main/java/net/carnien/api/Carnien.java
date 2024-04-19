@@ -1,5 +1,6 @@
 package net.carnien.api;
 
+import net.carnien.api.input.command.TeleportCommand;
 import net.carnien.api.input.module.*;
 import net.carnien.api.input.ModuleManager;
 import net.carnien.api.input.command.GamemodeCommand;
@@ -66,6 +67,7 @@ public final class Carnien extends JavaPlugin {
         commandHandler.add("group", new GroupCommand(this));
         commandHandler.add("groups", new GroupsCommand(this));
         commandHandler.add("gamemode", new GamemodeCommand(this));
+        commandHandler.add("teleport", new TeleportCommand(this));
     }
 
     public Module getModule(String name) {
