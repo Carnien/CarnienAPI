@@ -1,11 +1,8 @@
 package net.carnien.api;
 
-import net.carnien.api.input.command.TeleportCommand;
+import net.carnien.api.input.command.*;
 import net.carnien.api.input.module.*;
 import net.carnien.api.input.ModuleManager;
-import net.carnien.api.input.command.GamemodeCommand;
-import net.carnien.api.input.command.GroupCommand;
-import net.carnien.api.input.command.GroupsCommand;
 import net.carnien.api.input.Module;
 import net.carnien.dependencymanager.Dependency;
 import net.carnien.dependencymanager.DependencyManager;
@@ -60,6 +57,7 @@ public final class Carnien extends JavaPlugin {
         moduleManager.add("JsonHelper", new JsonHelper(this));
         moduleManager.add("PlayerHelper", new PlayerHelper(this));
         moduleManager.add("MojangApi", new MojangApi(this));
+        moduleManager.add("WhitelistManager", new WhitelistManager(this));
     }
 
     private void initializeCommands() {
@@ -68,6 +66,7 @@ public final class Carnien extends JavaPlugin {
         commandHandler.add("groups", new GroupsCommand(this));
         commandHandler.add("gamemode", new GamemodeCommand(this));
         commandHandler.add("teleport", new TeleportCommand(this));
+        commandHandler.add("whitelist", new WhitelistCommand(this));
     }
 
     public Module getModule(String name) {

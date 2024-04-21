@@ -11,3 +11,8 @@ messages:
   quit-message:
     syntax: "&7[&c-&7] %rank-color%%player%"
     enabled: true
+whitelist:
+  player-names: []
+  uuids: []
+  ip-addresses: []
+  enabled: false
