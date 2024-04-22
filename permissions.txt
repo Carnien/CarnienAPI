@@ -2,8 +2,12 @@
 - api.group
 - api.group.create
 - api.group.delete
-- api.group.set
 - api.group.permission
 - api.group.permission.add
 - api.group.permission.remove
+- api.group.set
 - api.groups
+- api.teleport
+- api.whitelist
+- api.whitelist.add
+- api.whitelist.add.name

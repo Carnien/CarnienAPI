@@ -1,9 +1,13 @@
 package net.carnien.api;
 
-import net.carnien.api.input.command.*;
-import net.carnien.api.input.module.*;
+import net.carnien.api.input.CarnienModule;
 import net.carnien.api.input.ModuleManager;
-import net.carnien.api.input.Module;
+import net.carnien.api.input.command.GamemodeCommand;
+import net.carnien.api.input.command.TeleportCommand;
+import net.carnien.api.input.module.essential.carnienlogger.CarnienLogger;
+import net.carnien.api.input.module.essential.commandhandler.CommandHandler;
+import net.carnien.api.input.module.essential.permissionmanager.PermissionManager;
+import net.carnien.api.input.module.optional.whitelistmanager.WhitelistManager;
 import net.carnien.dependencymanager.Dependency;
 import net.carnien.dependencymanager.DependencyManager;
 import org.bukkit.Bukkit;
@@ -15,7 +19,8 @@ import java.util.logging.Logger;
 public final class Carnien extends JavaPlugin {
 
     private final DependencyManager dependencyManager = new DependencyManager();
-    private final ModuleManager moduleManager = new ModuleManager();
+    private final ModuleManager staticModuleManager = new ModuleManager();
+    private final ModuleManager optionalModuleManager = new ModuleManager();
 
     @Override
     public void onLoad() {
@@ -43,54 +48,50 @@ public final class Carnien extends JavaPlugin {
 
     private void initialize() {
         saveDefaultConfig();
-        initializeModules();
-        moduleManager.enableAll();
+        initializeStaticModules();
         initializeCommands();
-        getPermissionManager().saveDefaultPermissions();
-        getPermissionManager().createTeams();
-    }
-
-    private void initializeModules() {
-        moduleManager.add("CarnienLogger", new CarnienLogger(this));
-        moduleManager.add("CommandHandler", new CommandHandler(this));
-        moduleManager.add("PermissionManager", new PermissionManager(this));
-        moduleManager.add("JsonHelper", new JsonHelper(this));
-        moduleManager.add("PlayerHelper", new PlayerHelper(this));
-        moduleManager.add("MojangApi", new MojangApi(this));
-        moduleManager.add("WhitelistManager", new WhitelistManager(this));
+        initializeOptionalModules();
     }
 
     private void initializeCommands() {
-        final CommandHandler commandHandler = getCommandHandler();
-        commandHandler.add("group", new GroupCommand(this));
-        commandHandler.add("groups", new GroupsCommand(this));
-        commandHandler.add("gamemode", new GamemodeCommand(this));
-        commandHandler.add("teleport", new TeleportCommand(this));
-        commandHandler.add("whitelist", new WhitelistCommand(this));
+        getCommandHandler().add(new GamemodeCommand(this));
+        getCommandHandler().add(new TeleportCommand(this));
     }
 
-    public Module getModule(String name) {
-        return moduleManager.get(name);
+    private void initializeStaticModules() {
+        staticModuleManager.add(new CarnienLogger(this));
+        staticModuleManager.add(new CommandHandler(this));
+        staticModuleManager.add(new PermissionManager(this));
+        staticModuleManager.enableAll();
     }
 
-    public void addModule(String name, Module module) {
-        moduleManager.add(name, module);
+    private void initializeOptionalModules() {
+        optionalModuleManager.add(new WhitelistManager(this));
+        optionalModuleManager.enableAll();
+    }
+
+    public void addModule(CarnienModule module) {
+        optionalModuleManager.add(module);
     }
 
     public void removeModule(String name) {
-        moduleManager.remove(name);
+        optionalModuleManager.remove(name);
+    }
+
+    public CarnienModule getModule(String name) {
+        return optionalModuleManager.get(name);
     }
 
     public CarnienLogger getCarnienLogger() {
-        return (CarnienLogger) moduleManager.get("CarnienLogger");
-    }
-
-    public PermissionManager getPermissionManager() {
-        return (PermissionManager) moduleManager.get("PermissionManager");
+        return (CarnienLogger) staticModuleManager.get("CarnienLogger");
     }
 
     public CommandHandler getCommandHandler() {
-        return (CommandHandler) moduleManager.get("CommandHandler");
+        return (CommandHandler) staticModuleManager.get("CommandHandler");
+    }
+
+    public PermissionManager getPermissionManager() {
+        return (PermissionManager) staticModuleManager.get("PermissionManager");
     }
 
 }

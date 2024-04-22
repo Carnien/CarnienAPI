@@ -1,10 +1,10 @@
 package net.carnien.api.input.command;
 
 import net.carnien.api.Carnien;
-import net.carnien.api.input.Command;
-import net.carnien.api.permission.Group;
-import net.carnien.api.input.module.PermissionManager;
-import net.carnien.api.input.module.CarnienLogger;
+import net.carnien.api.input.module.essential.permissionmanager.Group;
+import net.carnien.api.input.CarnienCommand;
+import net.carnien.api.input.module.essential.permissionmanager.PermissionManager;
+import net.carnien.api.input.module.essential.carnienlogger.CarnienLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
@@ -13,13 +13,13 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamemodeCommand extends Command {
+public class GamemodeCommand extends CarnienCommand {
 
     public GamemodeCommand(Carnien carnien) {
-        super(carnien, "Gamemode", "api.gamemode",
+        super(carnien, "gamemode", "api.gamemode",
             "gamemode <survival/creative/adventure/spectator> (player ...)");
+        addAlias("gm");
         setMinArgs(1);
-        setAliases(new String[]{"gm"});
     }
 
     @Override

@@ -1,10 +1,10 @@
 package net.carnien.api.input.command;
 
 import net.carnien.api.Carnien;
-import net.carnien.api.input.Command;
-import net.carnien.api.input.module.CarnienLogger;
-import net.carnien.api.input.module.PermissionManager;
-import net.carnien.api.permission.Group;
+import net.carnien.api.input.module.essential.carnienlogger.CarnienLogger;
+import net.carnien.api.input.module.essential.permissionmanager.PermissionManager;
+import net.carnien.api.input.module.essential.permissionmanager.Group;
+import net.carnien.api.input.CarnienCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -14,12 +14,12 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeleportCommand extends Command {
+public class TeleportCommand extends CarnienCommand {
 
     public TeleportCommand(Carnien carnien) {
-        super(carnien, "Teleport", "api.teleport", "/teleport (player ...) <player/x, y, z>");
+        super(carnien, "teleport", "api.teleport", "teleport (player ...) <player/x, y, z>");
+        addAlias("tp");
         setMinArgs(1);
-        setAliases(new String[]{"tp"});
     }
 
     @Override
