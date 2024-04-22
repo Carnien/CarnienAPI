@@ -78,25 +78,19 @@ public class PermissionManager extends CarnienModule {
         return permissions.contains(permission);
     }
 
-    public void updateScoreboard() {
+    public void updateScoreboards() {
+        for (Player player : Bukkit.getOnlinePlayers()) updateScoreboard(player);
+    }
+
+    public void updateScoreboard(Player player) {
+        Scoreboard scoreboard = getScoreboardForPlayer(player);
+        final CarnienScoreboardUpdateEvent event = new CarnienScoreboardUpdateEvent(player, scoreboard);
         final PluginManager pluginManager = Bukkit.getPluginManager();
-        final Map<Player, Scoreboard> scoreboards = new HashMap<>();
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            final Scoreboard scoreboard = getScoreboardForPlayer(player);
-            scoreboards.put(player, scoreboard);
-        }
-
-        final CarnienScoreboardUpdateEvent event = new CarnienScoreboardUpdateEvent(scoreboards);
         pluginManager.callEvent(event);
+        scoreboard = event.getScoreboard();
         final boolean cancelled = event.isCancelled();
 
-        if (cancelled) return;
-
-        for (Player player : scoreboards.keySet()) {
-            final Scoreboard scoreboard = scoreboards.get(player);
-            player.setScoreboard(scoreboard);
-        }
+        if (!cancelled) player.setScoreboard(scoreboard);
     }
 
     private Scoreboard getScoreboardForPlayer(Player player) {
@@ -168,7 +162,7 @@ public class PermissionManager extends CarnienModule {
             setRank(uuid, defaultGroup);
         }
 
-        updateScoreboard();
+        updateScoreboards();
         permissionConfig.set("groups." + groupNameLower, null);
         CustomConfig.save(permissionFile, permissionConfig);
     }
@@ -230,7 +224,7 @@ public class PermissionManager extends CarnienModule {
 
         final Team team = getTeam(groupName);
         team.addEntry(playerName);
-        updateScoreboard();
+        updateScoreboards();
     }
 
     public Group getDefaultGroup() {

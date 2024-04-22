@@ -1,6 +1,5 @@
 package net.carnien.api.input.module.essential.permissionmanager.event;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -13,10 +12,12 @@ public class CarnienScoreboardUpdateEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS = new HandlerList();
     private boolean cancelled = false;
-    private Map<Player, Scoreboard> scoreboards;
+    private Player player;
+    private Scoreboard scoreboard;
 
-    public CarnienScoreboardUpdateEvent(Map<Player, Scoreboard> scoreboards) {
-        this.scoreboards = scoreboards;
+    public CarnienScoreboardUpdateEvent(Player player, Scoreboard scoreboard) {
+        this.player = player;
+        this.scoreboard = scoreboard;
     }
 
     public static HandlerList getHandlerList() {
@@ -37,24 +38,12 @@ public class CarnienScoreboardUpdateEvent extends Event implements Cancellable {
         this.cancelled = cancelled;
     }
 
-    public Map<Player, Scoreboard> getScoreboards() {
-        return scoreboards;
+    public Player getPlayer() {
+        return player;
     }
 
-    public Scoreboard getScoreboard(String playerName) {
-        final Player player = Bukkit.getPlayer(playerName);
-        if (player == null) return null;
-        return scoreboards.get(player);
-    }
-
-    public void setScoreboard(String playerName, Scoreboard scoreboard) {
-        final Player player = Bukkit.getPlayer(playerName);
-        if (player == null) return;
-        scoreboards.put(player, scoreboard);
-    }
-
-    public void setScoreboards(Map<Player, Scoreboard> scoreboards) {
-        this.scoreboards = scoreboards;
+    public Scoreboard getScoreboard() {
+        return scoreboard;
     }
 
 }

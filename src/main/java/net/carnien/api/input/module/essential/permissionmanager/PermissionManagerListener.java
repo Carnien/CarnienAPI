@@ -24,7 +24,7 @@ public class PermissionManagerListener extends CarnienListener {
         final String groupName = group.getName();
         final Team team = permissionManager.getTeam(groupName);
         team.addEntry(playerName);
-        permissionManager.updateScoreboard();
+        permissionManager.updateScoreboards();
     }
 
     @EventHandler
@@ -36,6 +36,7 @@ public class PermissionManagerListener extends CarnienListener {
         final String groupName = group.getName();
         final Team team = permissionManager.getTeam(groupName);
         team.removeEntry(playerName);
+        permissionManager.updateScoreboards();
     }
 
 }
