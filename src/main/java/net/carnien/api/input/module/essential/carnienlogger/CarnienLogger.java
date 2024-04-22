@@ -50,6 +50,14 @@ public class CarnienLogger extends CarnienModule {
         Bukkit.broadcastMessage(message);
     }
 
+    public void broadcastMessage(String text) {
+        final FileConfiguration config = getCarnien().getConfig();
+        final String prefix = (String) config.get("prefix");
+        String message = prefix + text;
+        message = Formatter.format(FormatType.AND_TO_PARAGRAPH, message);
+        Bukkit.broadcastMessage(message);
+    }
+
     public void sendDebug(CommandSender sender, String debug) { sender.sendMessage("§e[DEBUG] §f" + debug);}
 
     public void sendError(CommandSender sender, String error) {
