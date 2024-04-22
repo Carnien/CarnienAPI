@@ -48,9 +48,7 @@ public class GamemodeCommand extends CarnienCommand {
 
         final List<Player> players = new ArrayList<>();
 
-        if (args.length == 1) {
-            players.add((Player) sender);
-        }
+        if (args.length == 1) players.add((Player) sender);
 
         for (int i = 1 ; i < args.length; i++) {
             final String playerName = args[i];

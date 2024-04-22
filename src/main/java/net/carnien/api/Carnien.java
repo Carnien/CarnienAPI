@@ -42,7 +42,7 @@ public final class Carnien extends JavaPlugin {
 
         final Logger logger = Bukkit.getLogger();
         logger.warning("Please restart or reload the server to enable downloaded dependencies!");
-        PluginManager pluginManager = Bukkit.getPluginManager();
+        final PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.disablePlugin(this);
     }
 

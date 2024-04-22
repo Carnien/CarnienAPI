@@ -10,16 +10,13 @@ public class PlayerHelper {
 
     public static UUID getUuidFromSavedPlayers(String playerName) {
         final OfflinePlayer offlinePlayer = getOfflinePlayer(playerName);
-
         if (offlinePlayer == null) return null;
-
         return offlinePlayer.getUniqueId();
     }
 
     public static OfflinePlayer getOfflinePlayer(String name) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             final String searchedPlayerName = player.getName();
-
             if (searchedPlayerName.equalsIgnoreCase(name)) return player;
         }
 
@@ -27,9 +24,7 @@ public class PlayerHelper {
 
         for (OfflinePlayer offlinePlayer : offlinePlayers) {
             final String offlinePlayerName = offlinePlayer.getName();
-
             if (offlinePlayerName == null) continue;
-
             if (offlinePlayerName.equalsIgnoreCase(name)) return offlinePlayer;
         }
 
