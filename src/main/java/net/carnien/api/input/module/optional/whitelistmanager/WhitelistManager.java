@@ -5,9 +5,7 @@ import net.carnien.api.input.CarnienModule;
 import net.carnien.api.input.module.optional.whitelistmanager.command.WhitelistCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class WhitelistManager extends CarnienModule {
 
@@ -15,23 +13,6 @@ public class WhitelistManager extends CarnienModule {
         super(carnien, "WhitelistManager");
         addListener(new WhitelistManagerListener(carnien, this));
         addCommand(new WhitelistCommand(carnien, this));
-    }
-
-    public boolean isPlayerNameListed(String name) {
-        name = name.toLowerCase();
-        final List<String> playerNames = getPlayerNames();
-        return playerNames.contains(name);
-    }
-
-    public boolean isUuidListed(UUID uuid) {
-        final List<String> uuidStrs = getUuids();
-        return uuidStrs.contains(uuid.toString());
-    }
-
-    public boolean isIpAddressListed(String ipAddress) {
-        ipAddress = ipAddress.toLowerCase();
-        final List<String> ipAddresses = getIpAddresses();
-        return ipAddresses.contains(ipAddress);
     }
 
     public void addPlayerName(String name) {
@@ -44,10 +25,10 @@ public class WhitelistManager extends CarnienModule {
         getCarnien().saveConfig();
     }
 
-    public void addUuid(UUID uuid) {
+    public void addUuid(String uuid) {
         if (isUuidListed(uuid)) return;
         final List<String> uuids = getPlayerNames();
-        uuids.add(uuid.toString());
+        uuids.add(uuid);
         final FileConfiguration config = getCarnien().getConfig();
         config.set("whitelist.uuids", uuids);
         getCarnien().saveConfig();
@@ -60,6 +41,51 @@ public class WhitelistManager extends CarnienModule {
         final FileConfiguration config = getCarnien().getConfig();
         config.set("whitelist.ip-addresses", ipAddresses);
         getCarnien().saveConfig();
+    }
+
+    public void removePlayerName(String name) {
+        name = name.toLowerCase();
+        if (!isPlayerNameListed(name)) return;
+        final List<String> playerNames = getPlayerNames();
+        playerNames.remove(name);
+        final FileConfiguration config = getCarnien().getConfig();
+        config.set("whitelist.player-names", playerNames);
+        getCarnien().saveConfig();
+    }
+
+    public void removeUuid(String uuid) {
+        if (!isUuidListed(uuid)) return;
+        final List<String> uuids = getPlayerNames();
+        uuids.remove(uuid);
+        final FileConfiguration config = getCarnien().getConfig();
+        config.set("whitelist.uuids", uuids);
+        getCarnien().saveConfig();
+    }
+
+    public void removeIpAddress(String ipAddress) {
+        if (!isIpAddressListed(ipAddress)) return;
+        final List<String> ipAddresses = getIpAddresses();
+        ipAddresses.remove(ipAddress);
+        final FileConfiguration config = getCarnien().getConfig();
+        config.set("whitelist.ip-addresses", ipAddresses);
+        getCarnien().saveConfig();
+    }
+
+    public boolean isPlayerNameListed(String name) {
+        name = name.toLowerCase();
+        final List<String> playerNames = getPlayerNames();
+        return playerNames.contains(name);
+    }
+
+    public boolean isUuidListed(String uuid) {
+        final List<String> uuidStrs = getUuids();
+        return uuidStrs.contains(uuid);
+    }
+
+    public boolean isIpAddressListed(String ipAddress) {
+        ipAddress = ipAddress.toLowerCase();
+        final List<String> ipAddresses = getIpAddresses();
+        return ipAddresses.contains(ipAddress);
     }
 
     public List<String> getPlayerNames() {

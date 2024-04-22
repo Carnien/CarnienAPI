@@ -6,12 +6,12 @@ import net.carnien.api.input.module.essential.carnienlogger.CarnienLogger;
 import net.carnien.api.input.module.optional.whitelistmanager.WhitelistManager;
 import org.bukkit.command.CommandSender;
 
-public class WhitelistAddNameCommand extends CarnienCommand {
+public class WhitelistAddIpCommand extends CarnienCommand {
 
     private final WhitelistManager whitelistManager;
 
-    public WhitelistAddNameCommand(Carnien carnien, WhitelistManager whitelistManager) {
-        super(carnien, "name", "api.whitelist.add.name", "whitelist add name <player ...>");
+    public WhitelistAddIpCommand(Carnien carnien, WhitelistManager whitelistManager) {
+        super(carnien, "ip", "api.whitelist.add.ip", "whitelist add ip <ip-address ...>");
         this.whitelistManager = whitelistManager;
         setMinArgs(1);
     }
@@ -20,16 +20,14 @@ public class WhitelistAddNameCommand extends CarnienCommand {
     protected void onCommand(CommandSender sender, String[] args) {
         final CarnienLogger logger = getCarnien().getCarnienLogger();
 
-        for (String name : args) {
-            name = name.toLowerCase();
-
-            if (whitelistManager.isPlayerNameListed(name)) {
-                logger.sendError(sender, "Name §4" + name + " §cis already whitelisted.");
+        for (String ipAddress : args) {
+            if (whitelistManager.isIpAddressListed(ipAddress)) {
+                logger.sendError(sender, "Ip-Address §4" + ipAddress + " §cis already whitelisted.");
                 continue;
             }
 
-            whitelistManager.addPlayerName(name);
-            logger.sendMessage(sender, "§aName §e" + name + " §ais now whitelisted.");
+            whitelistManager.addIpAddress(ipAddress);
+            logger.sendMessage(sender, "§aIp-Address §e" + ipAddress + " §ais now whitelisted.");
         }
     }
 
