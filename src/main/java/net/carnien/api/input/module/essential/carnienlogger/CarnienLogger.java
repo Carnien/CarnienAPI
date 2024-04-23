@@ -28,11 +28,8 @@ public class CarnienLogger extends CarnienModule {
     }
 
     public void sendMessage(CommandSender sender, String text) {
-        final FileConfiguration config = getCarnien().getConfig();
-        final String prefix = (String) config.get("prefix");
-        String message = prefix + text;
-        message = Formatter.format(FormatType.AND_TO_PARAGRAPH, message);
-        sender.sendMessage(message);
+        text = Formatter.format(FormatType.AND_TO_PARAGRAPH, text);
+        sender.sendMessage(getPrefix() + text);
     }
 
     public void sendChatMessage(Player player, String text) {
@@ -51,11 +48,9 @@ public class CarnienLogger extends CarnienModule {
     }
 
     public void broadcastMessage(String text) {
-        final FileConfiguration config = getCarnien().getConfig();
-        final String prefix = (String) config.get("prefix");
-        String message = prefix + text;
-        message = Formatter.format(FormatType.AND_TO_PARAGRAPH, message);
-        Bukkit.broadcastMessage(message);
+        text = Formatter.format(FormatType.AND_TO_PARAGRAPH, text);
+        for (Player player : Bukkit.getOnlinePlayers()) sendMessage(player, text);
+        print(getPrefix() + text);
     }
 
     public void sendDebug(CommandSender sender, String debug) { sender.sendMessage("§e[DEBUG] §f" + debug);}
@@ -74,6 +69,12 @@ public class CarnienLogger extends CarnienModule {
 
     public void sendPermissionDeniedError(CommandSender target) {
         sendError(target, "You got no permission to execute that command.");
+    }
+
+    public String getPrefix() {
+        final FileConfiguration config = getCarnien().getConfig();
+        final String prefix = (String) config.get("prefix");
+        return Formatter.format(FormatType.AND_TO_PARAGRAPH, prefix);
     }
 
 }
