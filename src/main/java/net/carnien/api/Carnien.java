@@ -2,6 +2,7 @@ package net.carnien.api;
 
 import net.carnien.api.input.CarnienModule;
 import net.carnien.api.input.ModuleManager;
+import net.carnien.api.input.command.FakeMessageCommand;
 import net.carnien.api.input.command.GamemodeCommand;
 import net.carnien.api.input.command.TeleportCommand;
 import net.carnien.api.input.module.essential.carnienlogger.CarnienLogger;
@@ -54,8 +55,10 @@ public final class Carnien extends JavaPlugin {
     }
 
     private void initializeCommands() {
-        getCommandHandler().add(new GamemodeCommand(this));
-        getCommandHandler().add(new TeleportCommand(this));
+        final CommandHandler commandHandler = getCommandHandler();
+        commandHandler.add(new FakeMessageCommand(this));
+        commandHandler.add(new GamemodeCommand(this));
+        commandHandler.add(new TeleportCommand(this));
     }
 
     private void initializeStaticModules() {
