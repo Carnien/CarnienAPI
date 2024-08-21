@@ -15,7 +15,7 @@ public class CarnienCommand extends CarnienUtil {
     private final String permission;
     private final String usage;
     private int minArgs = 0;
-    private int maxArgs = 127;
+    private int maxArgs = Integer.MAX_VALUE;
     private final Map<String, CarnienCommand> subCommands = new HashMap<>();
 
     public CarnienCommand(Carnien carnien, String label, String permission, String usage) {
