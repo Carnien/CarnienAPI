@@ -1,3 +1,4 @@
+- api.fakemessage
 - api.gamemode
 - api.group
 - api.group.create
@@ -8,13 +9,15 @@
 - api.group.set
 - api.groups
 - api.teleport
+- api.time
+- api.time.set
 - api.whitelist
 - api.whitelist.add
 - api.whitelist.add.ip
 - api.whitelist.add.name
 - api.whitelist.add.uuid
+- api.whitelist.bypass
 - api.whitelist.remove
 - api.whitelist.remove.ip
 - api.whitelist.remove.name
 - api.whitelist.remove.uuid
-- api.whitelist.bypass
